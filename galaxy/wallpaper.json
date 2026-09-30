@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "Galaxy",
+  "entry": "index.html",
+  "description": "천천히 회전하는 나선 은하와 보랏빛 성운. 원본 ASTRA를 옮긴 WebGL 배경화면.",
+  "preview": "preview.png",
+  "properties": {
+    "rotationSpeed": {
+      "default": 0.55
+    },
+    "starBrightness": {
+      "default": 0.8
+    }
+  },
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

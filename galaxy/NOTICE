@@ -1,0 +1,6 @@
+Galaxy · WallpaperStore
+Copyright 2026 aidevksh
+Licensed under the Apache License, Version 2.0. See LICENSE.
+Adapted from WallpaperJS examples/astra-galaxy (ASTRA).
+Copyright 2026 WallpaperJS contributors. See UPSTREAM-NOTICE.
+Changes: renamed to Galaxy; added WallpaperStore metadata and packaging.

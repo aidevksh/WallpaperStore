@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Desert Dusk",
+  "description": "커다란 해 아래 겹겹이 이어지는 테라코타 사구와 날리는 모래.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

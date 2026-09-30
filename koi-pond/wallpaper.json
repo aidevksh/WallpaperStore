@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Koi Pond",
+  "description": "수련 사이를 유영하는 잉어와 겹쳐 번지는 물결을 위에서 바라본 연못.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

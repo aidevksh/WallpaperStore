@@ -1,0 +1,14 @@
+WallpaperJS
+Copyright 2026 WallpaperJS contributors
+
+WallpaperJS project code and documentation are licensed under the
+Apache License, Version 2.0. The full license is provided in LICENSE.
+
+Third-party dependencies and imported wallpaper or icon assets retain
+their own copyrights and licenses. Electron and its bundled Chromium,
+Node.js, and other components include separate license notices. Koffi
+and other runtime dependencies are also governed by their own licenses.
+Applicable dependency license texts and notices must accompany binary
+distributions; this file does not replace those texts.
+
+This NOTICE is informational and does not modify any license terms.

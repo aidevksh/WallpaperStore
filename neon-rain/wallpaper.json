@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Neon Rain",
+  "description": "분홍빛 네온과 청록빛 창문, 빗줄기와 물에 비친 도시의 밤.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

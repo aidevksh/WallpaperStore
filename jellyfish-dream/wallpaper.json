@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Jellyfish Dream",
+  "description": "깊은 푸른 바다 속 빛나는 해파리와 천천히 올라오는 기포.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

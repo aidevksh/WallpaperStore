@@ -1,0 +1,14 @@
+{
+  "name": "wallpaperstore",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Eleven self-contained animated wallpapers for WallpaperJS",
+  "author": "aidevksh",
+  "license": "Apache-2.0",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "preview": "node scripts/preview.mjs",
+    "package": "python3 scripts/package.py"
+  },
+  "devDependencies": { "playwright": "1.58.2" }
+}

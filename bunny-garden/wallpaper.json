@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Bunny Garden",
+  "description": "파스텔 정원에서 깡충 뛰는 토끼와 나비, 바람에 흔들리는 꽃.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

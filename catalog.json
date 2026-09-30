@@ -1,0 +1,57 @@
+[
+  {
+    "id": "galaxy",
+    "name": "Galaxy",
+    "description": "천천히 회전하는 나선 은하와 보랏빛 성운. 원본 ASTRA를 옮긴 WebGL 배경화면."
+  },
+  {
+    "id": "bunny-garden",
+    "name": "Bunny Garden",
+    "description": "파스텔 정원에서 깡충 뛰는 토끼와 나비, 바람에 흔들리는 꽃."
+  },
+  {
+    "id": "coastal-drive",
+    "name": "Coastal Drive",
+    "description": "햇살 가득한 바다를 끼고 달리는 해안 도로. 야자수와 차선이 흘러가는 드라이브."
+  },
+  {
+    "id": "neon-rain",
+    "name": "Neon Rain",
+    "description": "분홍빛 네온과 청록빛 창문, 빗줄기와 물에 비친 도시의 밤."
+  },
+  {
+    "id": "bamboo-breeze",
+    "name": "Bamboo Breeze",
+    "description": "안개 낀 대나무 숲 사이로 떠다니는 잎과 따스한 빛."
+  },
+  {
+    "id": "aurora-lake",
+    "name": "Aurora Lake",
+    "description": "설산 너머 춤추는 초록빛 오로라와 잔잔한 호수의 반사."
+  },
+  {
+    "id": "jellyfish-dream",
+    "name": "Jellyfish Dream",
+    "description": "깊은 푸른 바다 속 빛나는 해파리와 천천히 올라오는 기포."
+  },
+  {
+    "id": "desert-dusk",
+    "name": "Desert Dusk",
+    "description": "커다란 해 아래 겹겹이 이어지는 테라코타 사구와 날리는 모래."
+  },
+  {
+    "id": "cloud-islands",
+    "name": "Cloud Islands",
+    "description": "살구빛 하늘에 떠 있는 작은 섬과 풍선, 느리게 흐르는 구름."
+  },
+  {
+    "id": "koi-pond",
+    "name": "Koi Pond",
+    "description": "수련 사이를 유영하는 잉어와 겹쳐 번지는 물결을 위에서 바라본 연못."
+  },
+  {
+    "id": "silk-flow",
+    "name": "Silk Flow",
+    "description": "짙은 남색 공간을 흐르는 산호빛·라일락빛 리본의 부드러운 추상 애니메이션."
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Bamboo Breeze",
+  "description": "안개 낀 대나무 숲 사이로 떠다니는 잎과 따스한 빛.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

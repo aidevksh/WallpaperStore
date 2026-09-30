@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Aurora Lake",
+  "description": "설산 너머 춤추는 초록빛 오로라와 잔잔한 호수의 반사.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

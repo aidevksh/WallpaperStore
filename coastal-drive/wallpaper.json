@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Coastal Drive",
+  "description": "햇살 가득한 바다를 끼고 달리는 해안 도로. 야자수와 차선이 흘러가는 드라이브.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

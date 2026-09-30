@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Cloud Islands",
+  "description": "살구빛 하늘에 떠 있는 작은 섬과 풍선, 느리게 흐르는 구름.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}
