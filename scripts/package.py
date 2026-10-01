@@ -11,6 +11,7 @@ out.mkdir(exist_ok=True)
 for item in json.loads((root / 'catalog.json').read_text(encoding='utf-8')):
     folder = root / item['id']
     files = sorted(p for p in folder.iterdir() if p.is_file())
+    assert not any(p.suffix.lower() in {'.webm', '.mp4', '.mov', '.m4v', '.avi'} for p in files), f'{folder.name}: video assets are not allowed'
     with ZipFile(out / (item['id'] + '.zip'), 'w', ZIP_DEFLATED) as archive:
         for file in files:
             archive.write(file, file.name)

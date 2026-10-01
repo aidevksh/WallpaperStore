@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Pixel Voyage",
+  "description": "대항해시대의 범선과 파도치는 바다. 도트 구름과 갈매기 사이로 이어지는 항해.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Ember Blade",
+  "description": "좌하단으로 향하는 검날이 화면을 대각선으로 가릅니다. 사실적인 강철 질감과 검날을 따라 타오르는 불꽃, 무협지의 산악 안개.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}

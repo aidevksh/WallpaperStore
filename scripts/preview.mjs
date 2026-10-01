@@ -5,12 +5,16 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 const catalog = JSON.parse(fs.readFileSync('catalog.json'));
+const selected = process.argv.find(arg => arg.startsWith('--only='))?.slice(7).split(',');
+if (selected) assert(selected.every(id => catalog.some(item => item.id === id)), 'Unknown wallpaper in --only');
+const writePreviews = !process.argv.includes('--check-only');
 // Software WebGL also renders Galaxy on headless machines without a GPU.
-const options = { headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] };
+const options = { headless: true, args: ['--disable-gpu', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] };
 if (process.env.CHROME_PATH) options.executablePath = process.env.CHROME_PATH;
 const browser = await chromium.launch(options);
 try {
   for (const { id } of catalog) {
+    if (selected && !selected.includes(id)) continue;
     const page = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1 });
     const errors = [];
     const requests = [];
@@ -30,7 +34,8 @@ try {
     await page.waitForTimeout(550);
     const second = await page.screenshot();
     assert(!first.equals(second), `${id}: animation is static`);
-    await page.screenshot({ path: `${id}/preview.png` });
+    if (writePreviews) await page.screenshot({ path: `${id}/preview.png` });
+    assert.equal(await page.locator('video').count(), 0, `${id}: video playback is not allowed`);
     await page.evaluate(() => window.hostListeners.lifecycle?.({ state: 'paused', fps: 30 }));
     await page.waitForTimeout(150);
     const paused = await page.screenshot();
@@ -39,6 +44,11 @@ try {
     await page.evaluate(() => window.hostListeners.lifecycle?.({ state: 'running', fps: 30 }));
     await page.waitForTimeout(250);
     assert(!paused.equals(await page.screenshot()), `${id}: lifecycle resume failed`);
+    await page.evaluate(() => window.hostListeners.lifecycle?.({ state: 'running', fps: 60 }));
+    await page.waitForTimeout(100);
+    const at60 = await page.screenshot();
+    await page.waitForTimeout(200);
+    assert(!at60.equals(await page.screenshot()), `${id}: 60fps animation is static`);
     await page.setViewportSize({ width: 900, height: 1200 });
     await page.waitForTimeout(100);
     assert(await page.evaluate(() => document.querySelector('canvas').width > 0));
@@ -51,7 +61,7 @@ try {
     }
     assert.deepEqual(errors, [], `${id}: browser errors`);
     assert.deepEqual(requests, [], `${id}: external requests`);
-    console.log(`PASS ${id}: animation, pause/resume, resize, offline render${id !== 'galaxy' ? ', reduced motion' : ''}`);
+    console.log(`PASS ${id}: 30/60fps animation, pause/resume, resize, offline render${id !== 'galaxy' ? ', reduced motion' : ''}`);
     await page.close();
   }
 } finally {

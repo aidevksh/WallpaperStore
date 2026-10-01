@@ -53,5 +53,25 @@
     "id": "silk-flow",
     "name": "Silk Flow",
     "description": "짙은 남색 공간을 흐르는 산호빛·라일락빛 리본의 부드러운 추상 애니메이션."
+  },
+  {
+    "id": "ember-blade",
+    "name": "Ember Blade",
+    "description": "좌하단으로 향하는 검날이 화면을 대각선으로 가릅니다. 사실적인 강철 질감과 검날을 따라 타오르는 불꽃, 무협지의 산악 안개."
+  },
+  {
+    "id": "diamond-skull",
+    "name": "Diamond Skull",
+    "description": "크리스탈과 다이아몬드로 빚은 해골. 보석의 면을 따라 흐르는 빛과 반짝이는 섬광."
+  },
+  {
+    "id": "midnight-drive",
+    "name": "Midnight Drive",
+    "description": "달빛과 도시의 불빛을 향해 달리는 한밤의 도로. 흐르는 차선과 가로등, 헤드라이트."
+  },
+  {
+    "id": "pixel-voyage",
+    "name": "Pixel Voyage",
+    "description": "대항해시대의 범선과 파도치는 바다. 도트 구름과 갈매기 사이로 이어지는 항해."
   }
 ]

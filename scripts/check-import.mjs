@@ -15,7 +15,11 @@ try {
     for (const source of [id, `dist/${id}.zip`]) {
       const imported = library.import(path.resolve(source));
       assert.equal(library.project(imported).name, name);
-      for (const file of ['index.html', 'style.css', 'main.js', 'preview.png', 'LICENSE', 'NOTICE']) {
+      // WallpaperJS normalizes the manifest; artwork and runtime files must stay byte-identical.
+      const original = JSON.parse(fs.readFileSync(`${id}/wallpaper.json`));
+      const normalized = JSON.parse(fs.readFileSync(path.join(library.directory(imported), 'wallpaper.json')));
+      for (const field of ['schemaVersion', 'name', 'entry', 'preview', 'description']) assert.equal(normalized[field], original[field]);
+      for (const file of fs.readdirSync(id).filter(file => file !== 'wallpaper.json' && fs.statSync(path.join(id, file)).isFile())) {
         assert(fs.readFileSync(path.join(library.directory(imported), file)).equals(fs.readFileSync(`${id}/${file}`)), `${source}: ${file} changed during import`);
       }
     }

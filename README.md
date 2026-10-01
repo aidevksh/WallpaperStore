@@ -4,7 +4,7 @@
 
 **작은 세계를 바탕화면으로.**
 
-HTML · CSS · JavaScript로 만든 11가지 움직이는 배경화면.<br>
+HTML · CSS · JavaScript로 만든 15가지 움직이는 배경화면.<br>
 오프라인 실행 · 개별 ZIP 다운로드 · 제작자 **aidevksh**
 
 [배경화면 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest) · [WallpaperJS 앱 릴리즈](https://github.com/aidevksh/WallpaperJS/releases) · [Apache 2.0](LICENSE)
@@ -18,6 +18,8 @@ HTML · CSS · JavaScript로 만든 11가지 움직이는 배경화면.<br>
 3. WallpaperJS에서 ZIP 또는 압축을 푼 폴더를 가져온 뒤 디스플레이에 적용하세요. 전체 저장소 ZIP을 가져오는 대신, 개별 배경화면 ZIP이나 폴더를 선택하세요.
 
 별도의 빌드·CDN·API 키·외부 이미지·폰트가 필요하지 않으며, 소리를 재생하거나 마이크를 사용하지 않습니다. 브라우저로 여는 것은 미리보기이며 바탕화면 적용에는 WallpaperJS가 필요합니다.
+
+모든 테마는 **HTML/CSS/JavaScript 실시간 애니메이션**으로 제작합니다. WebM 등 동영상 파일을 사용하거나 배포하지 않습니다. `preview.png`는 목록에서 보여주는 정지 미리보기입니다.
 
 ## 배경화면
 
@@ -178,6 +180,62 @@ README에서도 이미지 미리보기가 가능합니다. 아래 PNG는 **실�
 <sub>aidevksh · Apache-2.0</sub>
 
 </td>
+<td width="50%" valign="top">
+
+### [Ember Blade](ember-blade/)
+
+[![Ember Blade](ember-blade/preview.png)](ember-blade/)
+
+좌하단으로 향하는 검날이 화면을 대각선으로 가릅니다. 사실적인 강철 질감과 검날을 따라 타오르는 불꽃, 무협지의 산악 안개.
+
+[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/ember-blade.zip) · [소스](ember-blade/)
+
+<sub>aidevksh · Apache-2.0</sub>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### [Diamond Skull](diamond-skull/)
+
+[![Diamond Skull](diamond-skull/preview.png)](diamond-skull/)
+
+크리스탈과 다이아몬드로 빚은 해골. 보석의 면을 따라 흐르는 빛과 반짝이는 섬광.
+
+[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/diamond-skull.zip) · [소스](diamond-skull/)
+
+<sub>aidevksh · Apache-2.0</sub>
+
+</td>
+<td width="50%" valign="top">
+
+### [Midnight Drive](midnight-drive/)
+
+[![Midnight Drive](midnight-drive/preview.png)](midnight-drive/)
+
+달빛과 도시의 불빛을 향해 달리는 한밤의 도로. 흐르는 차선과 가로등, 헤드라이트.
+
+[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/midnight-drive.zip) · [소스](midnight-drive/)
+
+<sub>aidevksh · Apache-2.0</sub>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### [Pixel Voyage](pixel-voyage/)
+
+[![Pixel Voyage](pixel-voyage/preview.png)](pixel-voyage/)
+
+대항해시대의 범선과 파도치는 바다. 도트 구름과 갈매기 사이로 이어지는 항해.
+
+[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/pixel-voyage.zip) · [소스](pixel-voyage/)
+
+<sub>aidevksh · Apache-2.0</sub>
+
+</td>
 <td width="50%">
 
 **나만의 배경화면으로 수정해 보세요.**<br>각 폴더는 독립된 웹 프로젝트입니다.
@@ -195,6 +253,8 @@ bunny-garden/
 ├── index.html        # 시작 페이지
 ├── style.css         # 전체 화면 스타일
 ├── main.js           # 장면 및 애니메이션
+├── background.png    # Ember Blade / Diamond Skull의 로컬 정지 원화
+├── fire.js           # Ember Blade의 실시간 WebGL 화염
 ├── wallpaper.json    # WallpaperJS 메타데이터
 ├── preview.png       # 실제 렌더링 미리보기
 ├── README.md         # 설명, 다운로드, 제작자
@@ -206,9 +266,10 @@ Galaxy는 원본 [ASTRA 예제](https://github.com/aidevksh/WallpaperJS/tree/mai
 
 ## 실행 및 성능
 
-- Galaxy는 WebGL을, 추가 10개 배경화면은 Canvas 2D를 사용합니다.
+- Galaxy는 WebGL을, Ember Blade는 Canvas 2D와 WebGL 화염을, 나머지 13개는 Canvas 2D를 사용합니다. Pixel Voyage는 480×270 해상도의 도트 장면을 보간 없이 확대합니다.
+- Ember Blade와 Diamond Skull은 함께 포함된 로컬 `background.png` 위에 불꽃·불티·빛의 반짝임을 실시간 합성합니다. 정지 원화는 ImageGen으로 생성했으며 각 폴더의 `ARTWORK.md`에 생성 프롬프트를 기록했습니다. WebGL을 사용할 수 없는 환경에서 Ember Blade는 검날의 열광과 불티를 표시합니다.
 - 추가 배경화면은 기본 30fps, 최대 DPR 1.5로 렌더링하며 WallpaperJS의 30/60fps·일시정지 이벤트를 지원합니다. 숨겨진 페이지에서는 애니메이션을 멈추고, 운영체제의 동작 줄이기 설정에서는 정지 화면을 표시합니다.
-- 16:9 화면에 맞춰 디자인했으며 창 크기에 맞게 채웁니다. 다른 비율에서는 일부 도형이 늘어나 보일 수 있습니다.
+- 16:9 화면에 맞춰 디자인했으며 창 크기에 맞게 채웁니다. 신규 네 테마는 비율을 유지하며 가장자리를 잘라 채웁니다. 기존 테마는 다른 비율에서 일부 도형이 늘어나 보일 수 있습니다.
 - 미리보기와 자동 실행 검증은 Chromium에서 수행했습니다. Windows/macOS 실제 바탕화면 배치와 장시간 GPU 사용량은 환경별 확인이 필요합니다.
 
 ## 개발 및 검증
@@ -218,9 +279,11 @@ Galaxy는 원본 [ASTRA 예제](https://github.com/aidevksh/WallpaperJS/tree/mai
 ```sh
 npm ci
 npx playwright install chromium
-npm run preview     # 브라우저 검증 및 11개 PNG 재생성
+npm run preview     # 브라우저 검증 및 15개 PNG 재생성
+node scripts/preview.mjs --check-only  # PNG를 바꾸지 않고 전체 동작 검증
+node scripts/preview.mjs "--only=ember-blade,diamond-skull,midnight-drive,pixel-voyage"
 npm run check       # 매니페스트, 필수 파일, JS 구문 검증
-npm run package     # dist/에 개별 ZIP 11개 생성
+npm run package     # dist/에 개별 ZIP 15개 생성
 node scripts/check-import.mjs /path/to/WallpaperJS  # 원본 앱의 폴더/ZIP 가져오기 검증
 ```
 

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "entry": "index.html",
+  "preview": "preview.png",
+  "name": "Midnight Drive",
+  "description": "달빛과 도시의 불빛을 향해 달리는 한밤의 도로. 흐르는 차선과 가로등, 헤드라이트.",
+  "author": "aidevksh",
+  "license": "Apache-2.0"
+}
