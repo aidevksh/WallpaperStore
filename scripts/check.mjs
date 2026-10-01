@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 const catalog = JSON.parse(fs.readFileSync('catalog.json'));
-assert.equal(catalog.length, 15);
+assert.equal(catalog.length, 11);
 assert.equal(new Set(catalog.map(item => item.id)).size, catalog.length);
 for (const { id, name } of catalog) {
   const manifest = JSON.parse(fs.readFileSync(`${id}/wallpaper.json`));

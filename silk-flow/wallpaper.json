@@ -1,9 +1,0 @@
-{
-  "schemaVersion": 1,
-  "entry": "index.html",
-  "preview": "preview.png",
-  "name": "Silk Flow",
-  "description": "짙은 남색 공간을 흐르는 산호빛·라일락빛 리본의 부드러운 추상 애니메이션.",
-  "author": "aidevksh",
-  "license": "Apache-2.0"
-}

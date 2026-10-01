@@ -4,7 +4,7 @@
 
 **작은 세계를 바탕화면으로.**
 
-HTML · CSS · JavaScript로 만든 15가지 움직이는 배경화면.<br>
+HTML · CSS · JavaScript로 만든 11가지 움직이는 배경화면.<br>
 오프라인 실행 · 개별 ZIP 다운로드 · 제작자 **aidevksh**
 
 [배경화면 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest) · [WallpaperJS 앱 릴리즈](https://github.com/aidevksh/WallpaperJS/releases) · [Apache 2.0](LICENSE)
@@ -169,62 +169,6 @@ README에서도 이미지 미리보기가 가능합니다. 아래 PNG는 **실�
 <tr>
 <td width="50%" valign="top">
 
-### [Silk Flow](silk-flow/)
-
-[![Silk Flow](silk-flow/preview.png)](silk-flow/)
-
-짙은 남색 공간을 흐르는 산호빛·라일락빛 리본의 부드러운 추상 애니메이션.
-
-[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/silk-flow.zip) · [소스](silk-flow/)
-
-<sub>aidevksh · Apache-2.0</sub>
-
-</td>
-<td width="50%" valign="top">
-
-### [Ember Blade](ember-blade/)
-
-[![Ember Blade](ember-blade/preview.png)](ember-blade/)
-
-좌하단으로 향하는 검날이 화면을 대각선으로 가릅니다. 사실적인 강철 질감과 검날을 따라 타오르는 불꽃, 무협지의 산악 안개.
-
-[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/ember-blade.zip) · [소스](ember-blade/)
-
-<sub>aidevksh · Apache-2.0</sub>
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### [Diamond Skull](diamond-skull/)
-
-[![Diamond Skull](diamond-skull/preview.png)](diamond-skull/)
-
-크리스탈과 다이아몬드로 빚은 해골. 보석의 면을 따라 흐르는 빛과 반짝이는 섬광.
-
-[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/diamond-skull.zip) · [소스](diamond-skull/)
-
-<sub>aidevksh · Apache-2.0</sub>
-
-</td>
-<td width="50%" valign="top">
-
-### [Midnight Drive](midnight-drive/)
-
-[![Midnight Drive](midnight-drive/preview.png)](midnight-drive/)
-
-비가 갠 도시의 한밤을 운전석에서 바라봅니다. 젖은 아스팔트의 빛 반사, 흐르는 차선과 유리 위 빗방울.
-
-[ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/midnight-drive.zip) · [소스](midnight-drive/)
-
-<sub>aidevksh · Apache-2.0</sub>
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
 ### [Pixel Voyage](pixel-voyage/)
 
 [![Pixel Voyage](pixel-voyage/preview.png)](pixel-voyage/)
@@ -253,9 +197,8 @@ theme/
 ├── index.html        # 시작 페이지
 ├── style.css         # 전체 화면 스타일
 ├── main.js           # 장면 및 애니메이션
-├── background.png    # 신규 네 테마의 로컬 정지 원화
+├── background.png    # Pixel Voyage의 석양 바다 원화
 ├── ship.png          # Pixel Voyage의 투명 범선 레이어
-├── fire.js           # Ember Blade의 실시간 WebGL 화염
 ├── wallpaper.json    # WallpaperJS 메타데이터
 ├── preview.png       # 실제 렌더링 미리보기
 ├── README.md         # 설명, 다운로드, 제작자
@@ -267,10 +210,10 @@ Galaxy는 원본 [ASTRA 예제](https://github.com/aidevksh/WallpaperJS/tree/mai
 
 ## 실행 및 성능
 
-- Galaxy는 WebGL을, Ember Blade는 Canvas 2D와 WebGL 화염을, 나머지 13개는 Canvas 2D를 사용합니다. Pixel Voyage는 960×540 도트 장면을 보간 없이 확대하고, 바다와 투명 범선을 별도로 움직입니다.
-- 신규 네 테마는 함께 포함된 로컬 정지 원화와 HTML/CSS/JavaScript 실시간 효과로 구성됩니다. Ember Blade의 불꽃·불티, Diamond Skull의 반짝임, Midnight Drive의 차선·빗방울·노면, Pixel Voyage의 파도·선체·포말이 코드로 움직입니다. 정지 원화는 ImageGen으로 생성했으며 각 폴더의 `ARTWORK.md`에 생성 프롬프트를 기록했습니다. WebGL을 사용할 수 없는 환경에서 Ember Blade는 검날의 열광과 불티를 표시합니다.
+- Galaxy는 WebGL을, 나머지 10개는 Canvas 2D를 사용합니다. Pixel Voyage는 960×540 도트 장면을 보간 없이 확대하고, 바다와 투명 범선을 별도로 움직입니다.
+- Pixel Voyage는 함께 포함된 로컬 정지 원화와 HTML/CSS/JavaScript 실시간 효과로 구성됩니다. 파도·선체·포말이 코드로 움직이며 정지 원화는 ImageGen으로 생성했습니다. 생성 프롬프트는 `pixel-voyage/ARTWORK.md`에 기록했습니다.
 - 추가 배경화면은 기본 30fps, 최대 DPR 1.5로 렌더링하며 WallpaperJS의 30/60fps·일시정지 이벤트를 지원합니다. 숨겨진 페이지에서는 애니메이션을 멈추고, 운영체제의 동작 줄이기 설정에서는 정지 화면을 표시합니다.
-- 16:9 화면에 맞춰 디자인했으며 창 크기에 맞게 채웁니다. 신규 네 테마는 비율을 유지하며 가장자리를 잘라 채웁니다. 기존 테마는 다른 비율에서 일부 도형이 늘어나 보일 수 있습니다.
+- 16:9 화면에 맞춰 디자인했으며 창 크기에 맞게 채웁니다. Pixel Voyage는 비율을 유지하며 가장자리를 잘라 채웁니다. 기존 테마는 다른 비율에서 일부 도형이 늘어나 보일 수 있습니다.
 - 미리보기와 자동 실행 검증은 Chromium에서 수행했습니다. Windows/macOS 실제 바탕화면 배치와 장시간 GPU 사용량은 환경별 확인이 필요합니다.
 
 ## 개발 및 검증
@@ -280,11 +223,11 @@ Galaxy는 원본 [ASTRA 예제](https://github.com/aidevksh/WallpaperJS/tree/mai
 ```sh
 npm ci
 npx playwright install chromium
-npm run preview     # 브라우저 검증 및 15개 PNG 재생성
+npm run preview     # 브라우저 검증 및 11개 PNG 재생성
 node scripts/preview.mjs --check-only  # PNG를 바꾸지 않고 전체 동작 검증
-node scripts/preview.mjs "--only=ember-blade,diamond-skull,midnight-drive,pixel-voyage"
+node scripts/preview.mjs --only=pixel-voyage
 npm run check       # 매니페스트, 필수 파일, JS 구문 검증
-npm run package     # dist/에 개별 ZIP 15개 생성
+npm run package     # dist/에 개별 ZIP 11개 생성
 node scripts/check-import.mjs /path/to/WallpaperJS  # 원본 앱의 폴더/ZIP 가져오기 검증
 ```
 

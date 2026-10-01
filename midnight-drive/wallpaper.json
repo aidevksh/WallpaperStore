@@ -1,9 +1,0 @@
-{
-  "schemaVersion": 1,
-  "entry": "index.html",
-  "preview": "preview.png",
-  "name": "Midnight Drive",
-  "description": "비가 갠 도시의 한밤을 운전석에서 바라봅니다. 젖은 아스팔트의 빛 반사, 흐르는 차선과 유리 위 빗방울.",
-  "author": "aidevksh",
-  "license": "Apache-2.0"
-}
