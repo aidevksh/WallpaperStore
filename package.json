@@ -1,6 +1,6 @@
 {
   "name": "wallpaperstore",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Fifteen self-contained HTML/CSS/JavaScript animated wallpapers for WallpaperJS",
   "author": "aidevksh",
@@ -10,5 +10,7 @@
     "preview": "node scripts/preview.mjs",
     "package": "python scripts/package.py"
   },
-  "devDependencies": { "playwright": "1.58.2" }
+  "devDependencies": {
+    "playwright": "1.58.2"
+  }
 }

@@ -35,108 +35,83 @@
   document.addEventListener('visibilitychange', sync);
   motion.addEventListener('change', sync);
   if (window.wallpaperJS?.on) window.wallpaperJS.on('lifecycle', event => { paused = event.state === 'paused'; if (Number.isFinite(event.fps)) fps = Math.max(1, Math.min(60, event.fps)); sync(); });
-  // A fixed low-resolution backing canvas keeps every wave and sail a crisp pixel.
-  const pixels = document.createElement('canvas'); pixels.width = 480; pixels.height = 270;
-  const px = pixels.getContext('2d', { alpha: false });
-  const palette = { sky: '#7eb9c9', cloud: '#f7e7bd', cloudShade: '#d8cfab', far: '#80a8ae', sea: '#397e94', deep: '#235971', foam: '#a9cbbc', wood: '#754e40', dark: '#362f39', sail: '#f7e4b3', shade: '#c9b78a' };
-  function box(x, y, w, h, color) { px.fillStyle = color; px.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
-  function shape(points, color) { px.beginPath(); points.forEach(([x, y], i) => i ? px.lineTo(Math.round(x), Math.round(y)) : px.moveTo(Math.round(x), Math.round(y))); px.closePath(); px.fillStyle = color; px.fill(); }
-  function rope(points, color = '#584d42') { px.beginPath(); points.forEach(([x, y], i) => i ? px.lineTo(Math.round(x) + .5, Math.round(y) + .5) : px.moveTo(Math.round(x) + .5, Math.round(y) + .5)); px.strokeStyle = color; px.lineWidth = 1; px.stroke(); }
-  function pixelCloud(x, y, scale = 1) {
-    px.save(); px.translate(Math.round(x), Math.round(y)); px.scale(scale, scale);
-    const contour = [[0, 11], [8, 11], [8, 5], [17, 5], [17, 0], [33, 0], [33, 4], [42, 4], [42, 8], [59, 8], [59, 14], [68, 14], [68, 21], [0, 21]];
-    shape(contour, palette.cloudShade); shape(contour.map(([x, y]) => [x, y - 3]), palette.cloud);
-    box(8, 15, 44, 2, '#fff1ca'); px.restore();
-  }
-  function sail(x, y, w, h, t, seed) {
-    const billow = Math.round(Math.sin(t * 1.8 + seed) * 2);
-    shape([[x - w / 2, y], [x + w / 2, y], [x + w / 2 - 3 + billow, y + h - 5], [x + 5, y + h], [x - w / 2 + 3 + billow, y + h - 3]], palette.sail);
-    shape([[x + w / 2 - 8, y + 1], [x + w / 2, y], [x + w / 2 - 3 + billow, y + h - 5], [x + 5, y + h], [x + 8, y + h - 5]], palette.shade);
-    box(x - w / 2 + 2, y + 3, w - 5, 1, '#fff1d0');
-    for (let i = 1; i < 4; i++) rope([[x - w / 2 + i * w / 4, y + 2], [x - w / 2 + i * w / 4 + billow, y + h - 5]], '#dccda3');
-    box(x - w / 2 - 3, y - 1, w + 6, 2, palette.dark);
+  // Dense 960×540 pixel artwork, separate ship and scenery, with no interpolation.
+  const pixels = document.createElement('canvas'); pixels.width = 960; pixels.height = 540;
+  const px = pixels.getContext('2d', { alpha: false }); px.imageSmoothingEnabled = false;
+  const background = new Image(), vessel = new Image();
+  let ready = 0;
+  for (const image of [background, vessel]) image.onload = () => { ready++; sync(); };
+  background.src = 'background.png'; vessel.src = 'ship.png';
+  function box(x, y, width, height, color) { px.fillStyle = color; px.fillRect(Math.round(x), Math.round(y), Math.max(1, Math.round(width)), Math.max(1, Math.round(height))); }
+  function ocean(t) {
+    px.drawImage(background, 0, 0, 960, 540);
+    const sx = background.width / 960, sy = background.height / 540;
+    for (let y = 226; y < 540; y += 2) {
+      const depth = (y - 226) / 314;
+      const shift = Math.round((Math.sin(y * .059 - t * .75) * 3 + Math.sin(y * .021 + t * .43) * 2) * depth);
+      const sourceY = Math.max(226, Math.min(537, y + Math.sin(y * .046 - t * .7) * depth * 2));
+      // Wrapped horizontal scanlines create flowing swell without losing the fine pixel clusters.
+      px.drawImage(background, 0, sourceY * sy, 960 * sx, 2 * sy, shift, y, 960, 2);
+      if (shift > 0) px.drawImage(background, (960 - shift) * sx, sourceY * sy, shift * sx, 2 * sy, 0, y, shift, 2);
+      if (shift < 0) px.drawImage(background, 0, sourceY * sy, -shift * sx, 2 * sy, 960 + shift, y, -shift, 2);
+    }
   }
   function ship(t) {
-    px.save(); px.translate(242, Math.round(190 + Math.sin(t * 1.3) * 2));
-    // Bowsprit and rigging behind the canvas sails.
-    rope([[-78, -21], [-114, -43]], palette.dark); rope([[-69, -15], [-112, -43]]);
-    rope([[-114, -43], [-32, -119], [33, -136], [76, -93], [86, -7]]);
-    rope([[-92, -10], [-32, -119], [29, -6]]); rope([[-59, -10], [33, -136], [90, -7]]);
-    box(-34, -120, 3, 112, palette.wood); box(31, -136, 4, 130, palette.wood); box(74, -95, 3, 91, palette.wood);
-    // High stern, dark keel, copper banding, and rows of cannon ports.
-    shape([[-94, -15], [-75, -10], [59, -10], [59, -24], [89, -24], [94, 1], [77, 20], [-49, 20], [-72, 11]], palette.dark);
-    shape([[-91, -15], [-71, -7], [60, -7], [60, -22], [87, -22], [88, 1], [75, 13], [-52, 13], [-71, 6]], palette.wood);
-    shape([[-70, 6], [85, 6], [75, 16], [-49, 16]], '#553e38');
-    box(-75, -8, 137, 3, '#b48a58'); box(59, -24, 30, 3, '#c1a06a'); box(-62, 3, 144, 2, '#aa7c4c');
-    for (let i = 0; i < 11; i++) { box(-60 + i * 12, -3, 5, 4, '#262c34'); box(-58 + i * 12, -3, 2, 1, '#caab72'); }
-    for (let i = 0; i < 4; i++) box(64 + i * 5, -18, 3, 5, '#e8c78b');
-    box(-74, -14, 135, 2, '#e2bd7d'); box(58, -28, 31, 3, palette.wood);
-    for (let i = 0; i < 15; i++) box(-72 + i * 9, -18, 1, 5, '#b69162');
-    sail(-32, -109, 41, 26, t, 0); sail(-32, -75, 57, 40, t, 1);
-    sail(33, -124, 37, 26, t, 2); sail(33, -90, 56, 31, t, 3); sail(33, -52, 65, 30, t, 4);
-    sail(76, -83, 27, 27, t, 5); sail(76, -48, 31, 24, t, 6);
-    // A simple red navigation cross on the main topsail.
-    box(26, -82, 3, 16, '#a45742'); box(21, -77, 13, 3, '#a45742');
-    shape([[-110, -41], [-36, -93], [-65, -29]], '#ead6a5');
-    shape([[-108, -40], [-65, -29], [-70, -33]], '#bcad85');
-    // Ratlines form visible ladders on either side of the main mast.
-    for (let side of [-1, 1]) {
-      rope([[33 + side * 3, -83], [33 + side * 22, -13]], '#685848');
-      rope([[33 + side * 6, -83], [33 + side * 32, -13]], '#685848');
-      for (let i = 0; i < 9; i++) { const q = i / 8; rope([[33 + side * (4 + 18 * q), -79 + i * 8], [33 + side * (7 + 24 * q), -79 + i * 8]], '#75624d'); }
-    }
-    const flap = Math.round(Math.sin(t * 3.8) * 2);
-    shape([[35, -136], [55, -133 + flap], [49, -128 + flap], [35, -130]], '#a4523e');
-    shape([[-31, -120], [-18, -117 - flap], [-23, -114 - flap], [-31, -116]], '#e7c578');
-    box(32, -139, 2, 3, '#d8b576');
+    const width = 557, height = width * vessel.height / vessel.width;
+    const heave = Math.round(Math.sin(t * 1.05) * 2 + Math.sin(t * .47) * 1.5);
+    const x = 459 + Math.sin(t * .23) * 3, keel = 466 + heave;
+    px.save(); px.translate(Math.round(x), keel); px.rotate(Math.sin(t * .78) * .008);
+    // Draw the complete rigging in one pass so rotation cannot open seams between rows.
+    px.drawImage(vessel, Math.round(-width / 2), Math.round(-height), width, height);
     px.restore();
+    return { keel, heave };
   }
-  function waveRow(y, depth, t, front = false) {
-    for (let i = 0; i < 28; i++) {
-      const seed = i + Math.floor(y) * 19;
-      const speed = 4 + depth * 10;
-      const x = ((random(seed) * 560 + t * speed) % 560) - 40;
-      const yy = y + Math.round(Math.sin(t * 1.6 + i * .85 + y * .13) * (1 + depth * 2));
-      const width = 4 + random(seed + 83) * (12 + depth * 17);
-      box(x, yy, width, 1, front ? '#5ca0ad' : '#82b8b855');
-      if (i % 4 === 0) { box(x + width * .2, yy - 1, width * .5, 1, front ? palette.foam : '#b7d1be'); box(x + width * .4, yy - 2, width * .2, 1, '#90bcb5'); }
+  function wake(t, keel) {
+    // Broken cream and blue pixel clusters track the hull's waterline.
+    for (let i = 0; i < 190; i++) {
+      const life = (random(i + 510) + t * (.12 + random(i) * .1)) % 1;
+      const x = 275 + random(i + 50) * 445 + life * 22;
+      const y = keel - 7 + Math.sin((x - 270) / 445 * Math.PI) * 4 + random(i + 21) * 7 + Math.sin(t * 1.7 + i) * 1.5;
+      px.globalAlpha = Math.sin(life * Math.PI) * (.25 + random(i + 100) * .6);
+      box(x, y, 1 + random(i + 8) * 5, 1, i % 4 ? '#b9d0c7' : '#efdbb0');
+    }
+    px.globalAlpha = 1;
+    // Foreground crests conceal the bottom pixels of the hull, seating it in the sea.
+    const sy = background.height / 540;
+    for (let x = 272; x < 710; x += 3) {
+      const cut = Math.round(keel - 4 + Math.sin(x * .032 - t * .9) * 3);
+      const height = Math.max(1, keel + 8 - cut);
+      px.drawImage(background, x / 960 * background.width, cut * sy, 3 / 960 * background.width, height * sy, x, cut, 3, height);
+      if (random(x) > .6) box(x, cut, 2, 1, '#a4c0bd');
+    }
+    for (let y = Math.round(keel + 5); y < 540; y += 2) {
+      const shift = Math.round(Math.sin(y * .06 - t * .75) * 3);
+      px.drawImage(background, 0, y * sy, background.width, 2 * sy, shift, y, 960, 2);
+    }
+  }
+  function shimmer(t) {
+    for (let i = 0; i < 160; i++) {
+      const x = 776 + random(i + 234) * 178, y = 230 + random(i + 923) * 300;
+      const depth = (y - 230) / 310, intensity = Math.max(0, Math.sin(t * (1 + random(i)) + i));
+      px.globalAlpha = intensity * intensity * .3;
+      box(x + Math.sin(t * .6 + i) * depth * 3, y, 1 + random(i) * 6 * depth, 1, '#ffdfa0');
+    }
+    px.globalAlpha = 1;
+    for (let i = 0; i < 8; i++) {
+      const x = Math.round((680 + random(i + 31) * 390 + t * (2 + random(i))) % 1060 - 50);
+      const y = Math.round(78 + random(i + 18) * 101 + Math.sin(t * .5 + i) * 3);
+      const wing = Math.round(Math.sin(t * 3.6 + i));
+      box(x, y, 1, 1, '#455767'); box(x - 2, y - wing, 2, 1, '#455767'); box(x + 1, y - wing, 2, 1, '#455767');
     }
   }
   function scene(t) {
-    box(0, 0, 480, 270, palette.sky);
-    for (let i = 0; i < 9; i++) box(0, i * 15, 480, 15, `rgb(${126 + i * 4}, ${185 + i * 2}, ${201 - i * 2})`);
-    // Stepped sun, clouds, and distant island coastlines.
-    box(371, 22, 20, 36, '#f2dfab'); box(363, 29, 36, 22, '#f2dfab'); box(366, 25, 30, 30, '#f2dfab');
-    pixelCloud(((t * 1.8 + 30) % 620) - 90, 32, 1.25); pixelCloud(((t * 1.2 + 207) % 620) - 90, 19, .8); pixelCloud(((t * 1.4 + 456) % 620) - 90, 67, 1);
-    shape([[0, 126], [0, 105], [19, 105], [19, 98], [32, 98], [32, 87], [44, 87], [44, 79], [54, 79], [54, 94], [76, 94], [76, 104], [97, 104], [97, 116], [126, 116], [126, 126]], palette.far);
-    shape([[400, 128], [420, 116], [435, 116], [435, 107], [453, 107], [453, 102], [472, 102], [472, 108], [480, 108], [480, 130]], '#92afaa');
-    box(0, 126, 480, 144, palette.sea); box(0, 126, 480, 1, '#c4d4b8');
-    for (let y = 132; y < 270; y += 9) waveRow(y, (y - 126) / 144, t);
-    // A distant companion vessel on the horizon.
-    const farX = Math.round(391 + Math.sin(t * .06) * 12);
-    box(farX, 134, 21, 3, '#547477'); box(farX + 10, 115, 1, 19, '#698381');
-    shape([[farX + 11, 116], [farX + 20, 129], [farX + 11, 129]], '#dfdbb5'); shape([[farX + 9, 120], [farX + 2, 130], [farX + 9, 130]], '#ced4b4');
-    // Broken reflections follow the ship's gentle roll on the swell.
-    for (let i = 0; i < 14; i++) {
-      const y = 208 + i * 3, x = 223 + Math.sin(t * 1.6 + i) * 10;
-      box(x - 48 + i * 2, y, 99 - i * 4, 1, i % 2 ? '#c5b59120' : '#162f4645');
-    }
-    ship(t);
-    for (let y = 212; y < 270; y += 10) waveRow(y, (y - 126) / 144, t, true);
-    const bob = Math.round(Math.sin(t * 1.3) * 2);
-    for (let i = 0; i < 16; i++) {
-      const q = (i / 16 + t * .35) % 1, x = 153 + q * 192, y = 207 + Math.sin(q * 12 + t * 2) * 2 + bob;
-      box(x, y, 2 + random(i) * 5, 1, '#d5dfc3');
-    }
-    for (let i = 0; i < 6; i++) {
-      const x = Math.round(((random(i + 120) * 540 + t * (3 + i * .3)) % 540) - 30), y = Math.round(47 + i * 9 + Math.sin(t * .8 + i) * 3);
-      const wing = Math.round(Math.sin(t * 4 + i));
-      box(x, y, 1, 1, '#465f69'); box(x - 2, y - wing, 2, 1, '#465f69'); box(x + 1, y - wing, 2, 1, '#465f69');
-    }
-    // Scale directly in device pixels to avoid smoothing the pixel art.
-    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
-    const scale = Math.max(canvas.width / 480, canvas.height / 270);
-    ctx.drawImage(pixels, Math.round((canvas.width - 480 * scale) / 2), Math.round((canvas.height - 270 * scale) / 2), Math.ceil(480 * scale), Math.ceil(270 * scale)); ctx.restore();
+    if (ready < 2) { rect(-400, -400, 2400, 1700, '#132a3a'); return; }
+    px.globalAlpha = 1; ocean(t);
+    const { keel } = ship(t); wake(t, keel); shimmer(t);
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.imageSmoothingEnabled = false;
+    const scale = Math.max(canvas.width / 960, canvas.height / 540);
+    ctx.drawImage(pixels, Math.round((canvas.width - 960 * scale) / 2), Math.round((canvas.height - 540 * scale) / 2), Math.ceil(960 * scale), Math.ceil(540 * scale));
+    ctx.restore();
   }
 
   resize(); sync();

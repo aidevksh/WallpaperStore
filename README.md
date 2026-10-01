@@ -214,7 +214,7 @@ README에서도 이미지 미리보기가 가능합니다. 아래 PNG는 **실�
 
 [![Midnight Drive](midnight-drive/preview.png)](midnight-drive/)
 
-달빛과 도시의 불빛을 향해 달리는 한밤의 도로. 흐르는 차선과 가로등, 헤드라이트.
+비가 갠 도시의 한밤을 운전석에서 바라봅니다. 젖은 아스팔트의 빛 반사, 흐르는 차선과 유리 위 빗방울.
 
 [ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/midnight-drive.zip) · [소스](midnight-drive/)
 
@@ -229,7 +229,7 @@ README에서도 이미지 미리보기가 가능합니다. 아래 PNG는 **실�
 
 [![Pixel Voyage](pixel-voyage/preview.png)](pixel-voyage/)
 
-대항해시대의 범선과 파도치는 바다. 도트 구름과 갈매기 사이로 이어지는 항해.
+금빛 석양 아래 정교한 대항해시대 범선. 촘촘한 도트 구름과 넘실대는 파도, 흔들리는 배와 부서지는 포말.
 
 [ZIP 다운로드](https://github.com/aidevksh/WallpaperStore/releases/latest/download/pixel-voyage.zip) · [소스](pixel-voyage/)
 
@@ -249,11 +249,12 @@ README에서도 이미지 미리보기가 가능합니다. 아래 PNG는 **실�
 각 배경화면은 아래 구조를 따릅니다. 폴더 하나만 복사해도 실행됩니다.
 
 ```text
-bunny-garden/
+theme/
 ├── index.html        # 시작 페이지
 ├── style.css         # 전체 화면 스타일
 ├── main.js           # 장면 및 애니메이션
-├── background.png    # Ember Blade / Diamond Skull의 로컬 정지 원화
+├── background.png    # 신규 네 테마의 로컬 정지 원화
+├── ship.png          # Pixel Voyage의 투명 범선 레이어
 ├── fire.js           # Ember Blade의 실시간 WebGL 화염
 ├── wallpaper.json    # WallpaperJS 메타데이터
 ├── preview.png       # 실제 렌더링 미리보기
@@ -266,8 +267,8 @@ Galaxy는 원본 [ASTRA 예제](https://github.com/aidevksh/WallpaperJS/tree/mai
 
 ## 실행 및 성능
 
-- Galaxy는 WebGL을, Ember Blade는 Canvas 2D와 WebGL 화염을, 나머지 13개는 Canvas 2D를 사용합니다. Pixel Voyage는 480×270 해상도의 도트 장면을 보간 없이 확대합니다.
-- Ember Blade와 Diamond Skull은 함께 포함된 로컬 `background.png` 위에 불꽃·불티·빛의 반짝임을 실시간 합성합니다. 정지 원화는 ImageGen으로 생성했으며 각 폴더의 `ARTWORK.md`에 생성 프롬프트를 기록했습니다. WebGL을 사용할 수 없는 환경에서 Ember Blade는 검날의 열광과 불티를 표시합니다.
+- Galaxy는 WebGL을, Ember Blade는 Canvas 2D와 WebGL 화염을, 나머지 13개는 Canvas 2D를 사용합니다. Pixel Voyage는 960×540 도트 장면을 보간 없이 확대하고, 바다와 투명 범선을 별도로 움직입니다.
+- 신규 네 테마는 함께 포함된 로컬 정지 원화와 HTML/CSS/JavaScript 실시간 효과로 구성됩니다. Ember Blade의 불꽃·불티, Diamond Skull의 반짝임, Midnight Drive의 차선·빗방울·노면, Pixel Voyage의 파도·선체·포말이 코드로 움직입니다. 정지 원화는 ImageGen으로 생성했으며 각 폴더의 `ARTWORK.md`에 생성 프롬프트를 기록했습니다. WebGL을 사용할 수 없는 환경에서 Ember Blade는 검날의 열광과 불티를 표시합니다.
 - 추가 배경화면은 기본 30fps, 최대 DPR 1.5로 렌더링하며 WallpaperJS의 30/60fps·일시정지 이벤트를 지원합니다. 숨겨진 페이지에서는 애니메이션을 멈추고, 운영체제의 동작 줄이기 설정에서는 정지 화면을 표시합니다.
 - 16:9 화면에 맞춰 디자인했으며 창 크기에 맞게 채웁니다. 신규 네 테마는 비율을 유지하며 가장자리를 잘라 채웁니다. 기존 테마는 다른 비율에서 일부 도형이 늘어나 보일 수 있습니다.
 - 미리보기와 자동 실행 검증은 Chromium에서 수행했습니다. Windows/macOS 실제 바탕화면 배치와 장시간 GPU 사용량은 환경별 확인이 필요합니다.
